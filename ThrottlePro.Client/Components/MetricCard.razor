@@ -1,0 +1,18 @@
+<div class="metric-card">
+    <div class="metric-label">@Label</div>
+    <div class="metric-value">@Value</div>
+    @if (!string.IsNullOrEmpty(Trend))
+    {
+        <div class="metric-trend @(IsPositiveTrend ? "positive" : "")">
+            <i class="fas fa-arrow-@(IsPositiveTrend ? "up" : "down")"></i>
+            @Trend
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = string.Empty;
+    [Parameter] public string Value { get; set; } = string.Empty;
+    [Parameter] public string? Trend { get; set; }
+    [Parameter] public bool IsPositiveTrend { get; set; } = true;
+}
