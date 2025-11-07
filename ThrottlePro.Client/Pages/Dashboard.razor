@@ -1,0 +1,137 @@
+@page "/"
+@using ThrottlePro.Client.Components
+
+<PageHeader Title="Dashboard" Subtitle="Real-time customer engagement and campaign performance">
+    <Actions>
+        <button class="btn btn-primary">
+            <i class="fas fa-plus"></i> New Campaign
+        </button>
+        <button class="btn btn-secondary">
+            <i class="fas fa-download"></i> Export Report
+        </button>
+    </Actions>
+</PageHeader>
+
+<!-- KPI Grid -->
+<div class="kpi-grid">
+    <KpiCard Label="Total Customers" Value="14,892" Change="156 this month" IsPositive="true" />
+    <KpiCard Label="Active Campaigns" Value="7" Change="2 in progress" IsPositive="true" />
+    <KpiCard Label="Average ROAS" Value="4.2x" Change="+0.3x vs last month" IsPositive="true" />
+    <KpiCard Label="Campaign Revenue" Value="$247K" Change="+12% vs last month" IsPositive="true" />
+</div>
+
+<!-- Quick Actions -->
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Quick Actions</h2>
+    </div>
+    <div class="card-body">
+        <div class="three-column-grid">
+            <QuickActionCard
+                Title="Deploy Reminder Touch"
+                Description="Send automated service reminders to customers approaching maintenance intervals"
+                IconClass="fas fa-clock"
+                IconStyle="background: #E6F7FF; color: #00A3E0;"
+                ActionText="Launch Campaign" />
+
+            <QuickActionCard
+                Title="Reactivation Campaign"
+                Description="Target lapsed customers (12-18 months) with special win-back offers"
+                IconClass="fas fa-user-plus"
+                IconStyle="background: #FEF3C7; color: #92400E;"
+                ActionText="Create Campaign" />
+
+            <QuickActionCard
+                Title="New Acquisition"
+                Description="Geo-targeted campaigns to acquire new customers in service areas"
+                IconClass="fas fa-users"
+                IconStyle="background: #D1FAE5; color: #065F46;"
+                ActionText="Build Audience" />
+        </div>
+    </div>
+</div>
+
+<!-- Lifecycle Distribution -->
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Customer Lifecycle Distribution</h2>
+    </div>
+    <div class="card-body">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">New</div>
+                <div class="stat-value">2,847</div>
+                <span class="badge badge-blue" style="margin-top: 0.5rem;">0-30 days</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Active</div>
+                <div class="stat-value">8,923</div>
+                <span class="badge badge-green" style="margin-top: 0.5rem;">31-90 days</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">At Risk</div>
+                <div class="stat-value">1,842</div>
+                <span class="badge badge-yellow" style="margin-top: 0.5rem;">91-180 days</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Lapsed</div>
+                <div class="stat-value">987</div>
+                <span class="badge badge-red" style="margin-top: 0.5rem;">181-365 days</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Lost</div>
+                <div class="stat-value">293</div>
+                <span class="badge badge-gray" style="margin-top: 0.5rem;">365+ days</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Recent Activity</h2>
+    </div>
+    <div class="card-body">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Activity</th>
+                    <th>Details</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><i class="fas fa-envelope" style="color: var(--matrix-blue); margin-right: 0.5rem;"></i> Campaign Sent</td>
+                    <td>Touch #2 Campaign • 2,847 customers</td>
+                    <td>2 minutes ago</td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-shopping-cart" style="color: var(--matrix-yellow); margin-right: 0.5rem;"></i> Coupons Redeemed</td>
+                    <td>127 coupons • $15,748 revenue</td>
+                    <td>18 minutes ago</td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-check-circle" style="color: var(--throttle-green); margin-right: 0.5rem;"></i> Segment Built</td>
+                    <td>"Lapsed 12-18mo" • 1,423 customers</td>
+                    <td>1 hour ago</td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-paper-plane" style="color: var(--matrix-blue); margin-right: 0.5rem;"></i> Journey Activated</td>
+                    <td>"Win-Back Series" • Auto-trigger enabled</td>
+                    <td>3 hours ago</td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-chart-bar" style="color: var(--throttle-green); margin-right: 0.5rem;"></i> Report Generated</td>
+                    <td>Monthly ROAS Report • Q4 2024</td>
+                    <td>5 hours ago</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    // Dashboard logic here
+}
