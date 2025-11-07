@@ -1,18 +1,19 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace ThrottlePro.Shared.Entities;
 
 /// <summary>
 /// Represents a coupon/offer sent to customers
 /// </summary>
-public class Coupon
+[Index(nameof(Code), IsUnique = true)]
+[Index(nameof(ParentId), nameof(IsRedeemed))]
+[Index(nameof(CampaignId))]
+[Index(nameof(CustomerId))]
+[Index(nameof(ParentId), nameof(ExpirationDate))]
+public class Coupon : TenantEntity
 {
-    [Key]
-    public Guid Id { get; set; }
-
-    [Required]
-    public Guid ParentId { get; set; }
 
     public Guid? CampaignId { get; set; }
 
@@ -39,13 +40,7 @@ public class Coupon
 
     public bool IsRedeemed { get; set; } = false;
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime? UpdatedAt { get; set; }
-
-    // Navigation properties
-    [ForeignKey(nameof(ParentId))]
-    public virtual Parent Parent { get; set; } = null!;
+    // Navigation properties;
 
     [ForeignKey(nameof(CampaignId))]
     public virtual Campaign? Campaign { get; set; }

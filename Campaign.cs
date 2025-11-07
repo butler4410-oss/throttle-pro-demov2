@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using ThrottlePro.Shared.Enums;
 
 namespace ThrottlePro.Shared.Entities;
@@ -7,13 +8,12 @@ namespace ThrottlePro.Shared.Entities;
 /// <summary>
 /// Represents a marketing campaign
 /// </summary>
-public class Campaign
+[Index(nameof(ParentId), nameof(Status))]
+[Index(nameof(ParentId), nameof(StartDate))]
+[Index(nameof(SegmentId))]
+[Index(nameof(ParentId), nameof(Channel))]
+public class Campaign : TenantEntity
 {
-    [Key]
-    public Guid Id { get; set; }
-
-    [Required]
-    public Guid ParentId { get; set; }
 
     public Guid? SegmentId { get; set; }
 
@@ -56,13 +56,7 @@ public class Campaign
     [Column(TypeName = "decimal(10,2)")]
     public decimal ROAS { get; set; } = 0;
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime? UpdatedAt { get; set; }
-
-    // Navigation properties
-    [ForeignKey(nameof(ParentId))]
-    public virtual Parent Parent { get; set; } = null!;
+    // Navigation properties;
 
     [ForeignKey(nameof(SegmentId))]
     public virtual Segment? Segment { get; set; }

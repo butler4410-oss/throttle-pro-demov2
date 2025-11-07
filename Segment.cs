@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using ThrottlePro.Shared.Enums;
 
 namespace ThrottlePro.Shared.Entities;
@@ -7,13 +7,11 @@ namespace ThrottlePro.Shared.Entities;
 /// <summary>
 /// Represents a customer segment with rules or static membership
 /// </summary>
-public class Segment
+[Index(nameof(ParentId), nameof(IsActive))]
+[Index(nameof(ParentId), nameof(Type))]
+[Index(nameof(ParentId), nameof(Name))]
+public class Segment : TenantEntity
 {
-    [Key]
-    public Guid Id { get; set; }
-
-    [Required]
-    public Guid ParentId { get; set; }
 
     [Required]
     [MaxLength(200)]
@@ -35,13 +33,7 @@ public class Segment
 
     public bool IsActive { get; set; } = true;
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime? UpdatedAt { get; set; }
-
-    // Navigation properties
-    [ForeignKey(nameof(ParentId))]
-    public virtual Parent Parent { get; set; } = null!;
+    // Navigation properties;
 
     public virtual ICollection<CustomerSegment> CustomerSegments { get; set; } = new List<CustomerSegment>();
     public virtual ICollection<Campaign> Campaigns { get; set; } = new List<Campaign>();

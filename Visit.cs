@@ -1,21 +1,20 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace ThrottlePro.Shared.Entities;
 
 /// <summary>
 /// Represents a service visit transaction
 /// </summary>
-public class Visit
+[Index(nameof(CustomerId), nameof(VisitDate))]
+[Index(nameof(StoreId), nameof(VisitDate))]
+[Index(nameof(ParentId), nameof(VisitDate))]
+[Index(nameof(InvoiceNumber))]
+public class Visit : TenantEntity
 {
-    [Key]
-    public Guid Id { get; set; }
-
     [Required]
     public Guid CustomerId { get; set; }
-
-    [Required]
-    public Guid ParentId { get; set; }
 
     [Required]
     public Guid StoreId { get; set; }
@@ -44,16 +43,9 @@ public class Visit
 
     public int? VehicleMileage { get; set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime? UpdatedAt { get; set; }
-
     // Navigation properties
     [ForeignKey(nameof(CustomerId))]
     public virtual Customer Customer { get; set; } = null!;
-
-    [ForeignKey(nameof(ParentId))]
-    public virtual Parent Parent { get; set; } = null!;
 
     [ForeignKey(nameof(StoreId))]
     public virtual Store Store { get; set; } = null!;
