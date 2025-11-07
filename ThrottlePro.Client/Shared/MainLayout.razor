@@ -1,0 +1,101 @@
+@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+
+<div class="app-container">
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="logo-section">
+            <div class="matrix-logo">TP</div>
+            <div class="platform-name">ThrottlePro</div>
+        </div>
+
+        <div class="header-actions">
+            <MudSelect T="string" @bind-Value="selectedParent" Variant="Variant.Outlined"
+                       Dense="true" Style="min-width: 200px; color: white;">
+                <MudSelectItem Value="@("grease-monkey")">Grease Monkey - All Stores</MudSelectItem>
+                <MudSelectItem Value="@("jiffy-lube")">Jiffy Lube - All Stores</MudSelectItem>
+            </MudSelect>
+
+            <div class="user-menu">
+                <div class="user-avatar">CS</div>
+                <span style="font-weight: 600; font-size: 0.875rem;">Chase S.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="nav-section">
+            <div class="nav-section-title">Overview</div>
+            <div class="nav-item @(IsActive("/") ? "active" : "")" @onclick='() => NavigateTo("/")'>
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Customers</div>
+            <div class="nav-item @(IsActive("/customers") ? "active" : "")" @onclick='() => NavigateTo("/customers")'>
+                <i class="fas fa-users"></i>
+                <span>All Customers</span>
+            </div>
+            <div class="nav-item @(IsActive("/segments") ? "active" : "")" @onclick='() => NavigateTo("/segments")'>
+                <i class="fas fa-layer-group"></i>
+                <span>Segments</span>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Campaigns</div>
+            <div class="nav-item @(IsActive("/campaigns") ? "active" : "")" @onclick='() => NavigateTo("/campaigns")'>
+                <i class="fas fa-bullhorn"></i>
+                <span>Campaigns</span>
+                <span class="nav-badge">3</span>
+            </div>
+            <div class="nav-item @(IsActive("/journeys") ? "active" : "")" @onclick='() => NavigateTo("/journeys")'>
+                <i class="fas fa-route"></i>
+                <span>Journeys</span>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Insights</div>
+            <div class="nav-item @(IsActive("/analytics") ? "active" : "")" @onclick='() => NavigateTo("/analytics")'>
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </div>
+            <div class="nav-item @(IsActive("/reports") ? "active" : "")" @onclick='() => NavigateTo("/reports")'>
+                <i class="fas fa-file-alt"></i>
+                <span>Reports</span>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">System</div>
+            <div class="nav-item @(IsActive("/settings") ? "active" : "")" @onclick='() => NavigateTo("/settings")'>
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        @Body
+    </div>
+</div>
+
+@code {
+    private string selectedParent = "grease-monkey";
+
+    private bool IsActive(string path)
+    {
+        var currentPath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        return currentPath == path.TrimStart('/');
+    }
+
+    private void NavigateTo(string path)
+    {
+        Navigation.NavigateTo(path);
+    }
+}
