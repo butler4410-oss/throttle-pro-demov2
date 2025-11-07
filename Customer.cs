@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using ThrottlePro.Shared.Enums;
 
 namespace ThrottlePro.Shared.Entities;
@@ -7,13 +8,12 @@ namespace ThrottlePro.Shared.Entities;
 /// <summary>
 /// Represents a customer in the system
 /// </summary>
-public class Customer
+[Index(nameof(Email), IsUnique = true)]
+[Index(nameof(ParentId), nameof(LastVisitDate))]
+[Index(nameof(ParentId), nameof(LifecycleStage))]
+[Index(nameof(ParentId), nameof(Email))]
+public class Customer : TenantEntity
 {
-    [Key]
-    public Guid Id { get; set; }
-
-    [Required]
-    public Guid ParentId { get; set; }
 
     [Required]
     [MaxLength(100)]
@@ -71,13 +71,7 @@ public class Customer
     // Metadata
     public bool IsActive { get; set; } = true;
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime? UpdatedAt { get; set; }
-
     // Navigation properties
-    [ForeignKey(nameof(ParentId))]
-    public virtual Parent Parent { get; set; } = null!;
 
     public virtual ICollection<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
     public virtual ICollection<Visit> Visits { get; set; } = new List<Visit>();

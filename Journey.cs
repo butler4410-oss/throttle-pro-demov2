@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using ThrottlePro.Shared.Enums;
 
 namespace ThrottlePro.Shared.Entities;
@@ -7,13 +8,11 @@ namespace ThrottlePro.Shared.Entities;
 /// <summary>
 /// Represents an automated customer journey
 /// </summary>
-public class Journey
+[Index(nameof(ParentId), nameof(IsActive))]
+[Index(nameof(ParentId), nameof(TriggerType))]
+[Index(nameof(SegmentId))]
+public class Journey : TenantEntity
 {
-    [Key]
-    public Guid Id { get; set; }
-
-    [Required]
-    public Guid ParentId { get; set; }
 
     public Guid? SegmentId { get; set; }
 
@@ -32,13 +31,7 @@ public class Journey
 
     public int TotalCompleted { get; set; } = 0;
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime? UpdatedAt { get; set; }
-
-    // Navigation properties
-    [ForeignKey(nameof(ParentId))]
-    public virtual Parent Parent { get; set; } = null!;
+    // Navigation properties;
 
     [ForeignKey(nameof(SegmentId))]
     public virtual Segment? Segment { get; set; }

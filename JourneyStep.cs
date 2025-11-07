@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using ThrottlePro.Shared.Enums;
 
 namespace ThrottlePro.Shared.Entities;
@@ -7,16 +8,12 @@ namespace ThrottlePro.Shared.Entities;
 /// <summary>
 /// Represents a step in a customer journey
 /// </summary>
-public class JourneyStep
+[Index(nameof(JourneyId), nameof(Order))]
+[Index(nameof(ParentId), nameof(JourneyId))]
+public class JourneyStep : TenantEntity
 {
-    [Key]
-    public Guid Id { get; set; }
-
     [Required]
     public Guid JourneyId { get; set; }
-
-    [Required]
-    public Guid ParentId { get; set; }
 
     [Required]
     [MaxLength(200)]
@@ -33,14 +30,7 @@ public class JourneyStep
     [MaxLength(2000)]
     public string? ContentTemplate { get; set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime? UpdatedAt { get; set; }
-
     // Navigation properties
     [ForeignKey(nameof(JourneyId))]
-    public virtual Journey Journey { get; set; } = null!;
-
-    [ForeignKey(nameof(ParentId))]
-    public virtual Parent Parent { get; set; } = null!;
+    public virtual Journey Journey { get; set; } = null!
 }

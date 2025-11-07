@@ -1,19 +1,16 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace ThrottlePro.Shared.Entities;
 
 /// <summary>
 /// Represents a physical store location under a Parent
 /// </summary>
-public class Store
+[Index(nameof(ParentId), nameof(IsActive))]
+[Index(nameof(ParentId), nameof(StoreNumber))]
+[Index(nameof(ParentId), nameof(City), nameof(State))]
+public class Store : TenantEntity
 {
-    [Key]
-    public Guid Id { get; set; }
-
-    [Required]
-    public Guid ParentId { get; set; }
-
     [Required]
     [MaxLength(200)]
     public string Name { get; set; } = string.Empty;
@@ -41,13 +38,7 @@ public class Store
 
     public bool IsActive { get; set; } = true;
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime? UpdatedAt { get; set; }
-
     // Navigation properties
-    [ForeignKey(nameof(ParentId))]
-    public virtual Parent Parent { get; set; } = null!;
 
     public virtual ICollection<Visit> Visits { get; set; } = new List<Visit>();
 }
