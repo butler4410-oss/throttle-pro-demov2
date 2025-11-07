@@ -29,4 +29,8 @@ public class Parent : BaseEntity
     public virtual ICollection<Campaign> Campaigns { get; set; } = new List<Campaign>();
     public virtual ICollection<Segment> Segments { get; set; } = new List<Segment>();
     public virtual ICollection<Journey> Journeys { get; set; } = new List<Journey>();
+    public virtual ICollection<ReportTemplate> ReportTemplates { get; set; } = new List<ReportTemplate>();
+    public virtual ICollection<ReportSchedule> ReportSchedules { get; set; } = new List<ReportSchedule>();
+    public virtual ICollection<ReportExecution> ReportExecutions { get; set; } = new List<ReportExecution>();
+    public virtual ICollection<ReportDataSource> ReportDataSources { get; set; } = new List<ReportDataSource>();
 }
