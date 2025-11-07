@@ -1,15 +1,16 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace ThrottlePro.Shared.Entities;
 
 /// <summary>
-/// Represents a parent company/tenant (e.g., Grease Monkey Corporate, Jiffy Lube Franchise Group)
+/// Represents a parent company/tenant (e.g., Grease Monkey Corporate, Jiffy Lube Franchise Group).
+/// Each Parent is a separate tenant in the multi-tenant architecture.
 /// </summary>
-public class Parent
+[Index(nameof(Name))]
+[Index(nameof(IsActive))]
+public class Parent : BaseEntity
 {
-    [Key]
-    public Guid Id { get; set; }
-
     [Required]
     [MaxLength(200)]
     public string Name { get; set; } = string.Empty;
@@ -21,10 +22,6 @@ public class Parent
     public string? LogoUrl { get; set; }
 
     public bool IsActive { get; set; } = true;
-
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime? UpdatedAt { get; set; }
 
     // Navigation properties
     public virtual ICollection<Store> Stores { get; set; } = new List<Store>();
