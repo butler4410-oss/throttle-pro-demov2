@@ -1,0 +1,99 @@
+# Auto detect text files and normalize line endings to LF in the repository
+* text=auto
+
+# C# source files
+*.cs text diff=csharp
+*.csx text diff=csharp
+
+# Razor files
+*.razor text
+*.cshtml text
+*.vbhtml text
+
+# Configuration and data files
+*.json text
+*.xml text
+*.config text
+*.props text
+*.targets text
+*.resx text
+*.settings text
+
+# Solution and project files
+*.sln text eol=crlf
+*.csproj text
+*.vbproj text
+*.fsproj text
+*.dbproj text
+*.vcxproj text
+
+# Scripts
+*.sh text eol=lf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Web files
+*.html text
+*.css text
+*.scss text
+*.sass text
+*.js text
+*.ts text
+*.jsx text
+*.tsx text
+
+# Documentation
+*.md text
+*.txt text
+*.rtf text
+
+# Binary files
+*.dll binary
+*.exe binary
+*.pdb binary
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.bmp binary
+
+# Fonts
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+*.rar binary
+*.7z binary
+
+# Documents
+*.pdf binary
+*.doc binary
+*.docx binary
+*.xls binary
+*.xlsx binary
+*.ppt binary
+*.pptx binary
+
+# Database files
+*.mdf binary
+*.ldf binary
+*.ndf binary
+*.db binary
+*.sqlite binary
+
+# Media files
+*.mp3 binary
+*.mp4 binary
+*.avi binary
+*.mov binary
+*.wmv binary
