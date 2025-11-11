@@ -1,0 +1,20 @@
+<div class="quick-action-card" @onclick="OnClick">
+    <div class="quick-action-icon" style="@IconStyle">
+        <i class="@IconClass"></i>
+    </div>
+    <div class="quick-action-title">@Title</div>
+    <div class="quick-action-description">@Description</div>
+    @if (!string.IsNullOrEmpty(ActionText))
+    {
+        <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;">@ActionText</button>
+    }
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public string Description { get; set; } = string.Empty;
+    [Parameter] public string IconClass { get; set; } = "fas fa-star";
+    [Parameter] public string IconStyle { get; set; } = string.Empty;
+    [Parameter] public string? ActionText { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+}

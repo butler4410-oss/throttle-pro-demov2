@@ -1,0 +1,21 @@
+<div class="empty-state">
+    <div class="empty-state-icon">
+        <i class="@IconClass"></i>
+    </div>
+    <div class="empty-state-title">@Title</div>
+    @if (!string.IsNullOrEmpty(Description))
+    {
+        <div class="empty-state-description">@Description</div>
+    }
+    @if (Action != null)
+    {
+        @Action
+    }
+</div>
+
+@code {
+    [Parameter] public string IconClass { get; set; } = "fas fa-inbox";
+    [Parameter] public string Title { get; set; } = "No data available";
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public RenderFragment? Action { get; set; }
+}
