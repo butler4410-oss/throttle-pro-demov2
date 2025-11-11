@@ -20,13 +20,13 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ThrottlePro.sln
 
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build ThrottlePro.sln --no-restore --configuration Release
 
     - name: Test
-      run: dotnet test --no-build --configuration Release --verbosity normal
+      run: dotnet test ThrottlePro.sln --no-build --configuration Release --verbosity normal
       continue-on-error: true
 
     - name: Publish
